@@ -2,9 +2,10 @@ import datetime
 from pytube import YouTube
 import ast
 
+# Temps for testing
 LINK = "https://wwyoutube.com/watch?v=X40Tr3Q-BvE"
-
 yt = YouTube(LINK)
+
 # Description function
 def description(yt_link) -> str:
     desc = (f"Title: {yt_link.title}"
@@ -14,7 +15,7 @@ def description(yt_link) -> str:
 
 
 # Function to create dictionary list from fetched streams list
-def extract_streams(streams, stream_type)->list:
+def extract_streams(streams, stream_type) -> list:
     extracted_data = streams.strip("[]").replace('<Stream: ', '{"').replace(">", "}").split(", ")
     list_of_streams = []
     for stream in extracted_data:
@@ -35,29 +36,30 @@ def extract_streams(streams, stream_type)->list:
 
 
 # Fetch audio streams
-def fetch_audio_streams(yt_link)->list:
+def fetch_audio_streams(yt_link) -> list:
     fetched_streams = str(yt_link.streams.filter(only_audio=True))
     audio_list = extract_streams(fetched_streams, "audio")
     return audio_list
 
 
 # Fetch video streams
-def fetch_video_streams(yt_link)->list:
+def fetch_video_streams(yt_link) -> list:
     fetched_streams = str(yt_link.streams.filter(progressive=True))
     video_list = extract_streams(fetched_streams, "video")
     return video_list
 
 
 # Download function
-
 def download_stream(tag, yt_link):
     yt_stream = yt_link.streams.get_by_itag(tag)
+    print("Downloading...")
+    yt_stream.download()
+    print("Download Complete")
 
 
 def main():
-
     description(yt)
     # choice = input("Select the format you want to download:\n1.Audio\n2.Video")
     return
 
-#fetch_audio_streams(yt)
+
