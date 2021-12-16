@@ -26,9 +26,9 @@ def extract_streams(streams, stream_type) -> list:
     for stream in list_of_streams:
         if stream['type'] == 'video':
             video_list.append(
-                f"Quality:{stream['res']}, Type:{stream['type']}, Tag:{stream['itag']}")
+                f"Quality: {stream['res']}, Media Type: {stream['mime_type']}, Tag: {stream['itag']}")
         else:
-            audio_list.append(f"Quality:{stream['abr']}, Type:{stream['type']}, Tag:{stream['itag']}")
+            audio_list.append(f"Quality: {stream['abr']},Media Type: {stream['mime_type']}, Tag: {stream['itag']}")
     if stream_type == "audio":
         return audio_list
     if stream_type == "video":
